@@ -1,0 +1,44 @@
+@extends('layouts.app')
+
+@section('title')
+    Create Role
+@endsection
+
+@section('custom-css')
+    <link href="{{ asset('css/backend/role/style.css') }}" rel="stylesheet">
+@endsection
+
+@section('content')
+    <div class="container-fluid form-create">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Tạo mới Role</h1>
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+            <form method="post" action="{{ route('admin.role.store') }}">
+                @csrf
+                <div class="form-group">
+                    <label for="id">ID</label>
+                    <input type="text" readonly class="form-control" id="id" name="id" value="{{ $maxId }}">
+                </div>
+                <div class="form-group">
+                    <label for="name">Tên</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                    @error('name')
+                        <label class="text-danger mt-1">{{ $message }}</label>
+                    @enderror
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="w-25 btn btn-primary">Thêm mới</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+@endsection
+@section('js')
+    <script src="{{asset('js/backend/manage-role.js')}}"></script>
+@endsection

@@ -1,0 +1,17 @@
+.list-role .w-7 {
+  width: 7%;
+}
+.list-role .w-10 {
+  width: 10%;
+}
+.list-role tr td {
+  vertical-align: middle;
+}
+
+.form-create {
+  width: 50%;
+  margin: 0px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 5px;
+}

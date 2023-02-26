@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use \App\Http\Controllers\Domains\Role\Controllers\RoleController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -10,19 +10,20 @@ Route::get('/login', function () {
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function (){
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::prefix('role')->group(function () {
-        Route::get('/', [RoleController::class, 'index'])->name('index');
-        Route::get('/create', [RoleController::class, 'create'])->name('create');
-        Route::post('/store', [RoleController::class, 'store'])->name('store');
+    include "backend/role.php";
 
-        Route::get('/{role}', [RoleController::class, 'edit'])->name('edit');
-        Route::put('/{role}', [RoleController::class, 'update'])->name('update');
-        Route::delete('/{role}', [RoleController::class, 'delete'])->name('delete');
-    });
 });
+
+//Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+//
+//    Route::get('/home', [HomeController::class, 'index'])->name('home');
+//
+//    includeRouteFiles(__DIR__ . '/backend/');
+//});
 
 
 

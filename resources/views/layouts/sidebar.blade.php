@@ -1,6 +1,6 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.home') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -9,16 +9,16 @@
         </div>
     </a>
 
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ route('home') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+    <li class="nav-item {{ Route::is('admin.home') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.home') }}">
+            <i class="fa-solid fa-house"></i>
             <span>Trang chủ</span></a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ Route::is('admin.role.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.role.index') }}">
             <i class="fa-solid fa-flag fa-fw"></i>
-            <span>Quản lý Role</span></a>
+            <span>Role</span></a>
     </li>
 
     <li class="nav-item">
@@ -73,6 +73,5 @@
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
 </ul>
 
