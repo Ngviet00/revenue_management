@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RevenueManagement.Migrations
 {
     /// <inheritdoc />
-    public partial class table_user : Migration
+    public partial class createtbluser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,7 +38,7 @@ namespace RevenueManagement.Migrations
             migrationBuilder.InsertData(
                 table: "users",
                 columns: new[] { "id", "created_at", "date_of_birth", "deleted_at", "email", "image", "name", "password", "phone", "role_id", "sex", "updated_at", "username" },
-                values: new object[] { 1L, null, null, null, "", "", "superadmin", "123456", "", 1, 1, null, "superadmin" });
+                values: new object[] { 1L, null, null, null, "", "", "superadmin", "e10adc3949ba59abbe56e057f20f883e", "", 1, 1, null, "superadmin" });
         }
 
         /// <inheritdoc />

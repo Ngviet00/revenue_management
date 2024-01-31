@@ -12,8 +12,8 @@ using RevenueManagement.Context;
 namespace RevenueManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240131073833_table_user")]
-    partial class table_user
+    [Migration("20240131094353_create-tbl-user")]
+    partial class createtbluser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -147,7 +147,7 @@ namespace RevenueManagement.Migrations
                             Email = "",
                             Image = "",
                             Name = "superadmin",
-                            Password = "123456",
+                            Password = "e10adc3949ba59abbe56e057f20f883e",
                             Phone = "",
                             RoleId = 1,
                             Sex = 1,

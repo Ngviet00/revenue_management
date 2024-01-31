@@ -28,7 +28,7 @@ namespace RevenueManagement.Context
                     Id = 1,
                     Name = "superadmin",
                     Username = "superadmin",
-                    Password = "123456",
+                    Password = Utils.Security.MD5Hash("123456"),
                     RoleId = 1
                 }
             );
