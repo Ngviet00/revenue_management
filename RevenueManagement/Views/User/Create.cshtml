@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Thêm mới</h1>
+    <a href="@Url.Action("Index", "User")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        Danh sách người dùng
+    </a>
+</div>
+<form method="post">
+    <div class="form-group">
+        <label>Tên người dùng</label>
+        <input type="text" required class="form-control" placeholder="Username" name="username" autofocus>
+    </div>
+
+    <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="password" required class="form-control" placeholder="Password" name="password">
+    </div>
+
+    <div class="form-group">
+        <label>Số điện thoại</label>
+        <input type="text" class="form-control" required placeholder="Phone" name="phone" max="10">
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control" required placeholder="Email" name="email">
+    </div>
+
+    <div class="form-group d-flex">
+        <div>
+            <label>Giới tính</label> <br />
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="male" name="sex" value="1" checked>
+                <label class="form-check-label" for="male">
+                    Nam
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="female" name="sex" value="2">
+                <label class="form-check-label" for="female">
+                    Nữ
+                </label>
+            </div>
+        </div>
+
+        <div class="ml-5">
+            <div class="form-group">
+                <label for="start">Ngày sinh:</label><br />
+                <input type="date" oninvalid="this.setCustomValidity('Ngày sinh không được để trống!')" required id="dob" name="dob" style="
+                outline: none;
+                border: 1px solid #c7c7c7;
+                border-radius: 3px;
+                padding: 2px 5px;
+                color: #8f8686;" />
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-25">Lưu</button>
+</form>

@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+<div class="">
+    @* <div class="p-3 mb-2 bg-success text-white rounded">
+        Thêm thành công!
+    </div> *@
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Danh sách người dùng</h1>
+        <a href="@Url.Action("Create", "User")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            Thêm mới
+        </a>
+    </div>
+</div>
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (var i = 0; i < 10; i++)
+    {
+        <tr>
+            <th scope="row">@i</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>
+                <a href="">Sửa</a>
+                <a href="">Xóa</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
