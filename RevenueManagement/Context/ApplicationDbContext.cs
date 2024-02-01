@@ -11,8 +11,8 @@ namespace RevenueManagement.Context
         }
 
         public DbSet<Role> Roles { get; set; }
-
         public DbSet<User> Users { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

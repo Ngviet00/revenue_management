@@ -23,9 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Responses\" />
-    <Folder Include="Models\Requests\" />
-    <Folder Include="Services\" />
+    <Folder Include="Models\Requests\Company\" />
+    <Folder Include="Models\Requests\User\" />
+    <Folder Include="Models\Responses\Company\" />
+    <Folder Include="Models\Responses\User\" />
   </ItemGroup>
 
 </Project>
