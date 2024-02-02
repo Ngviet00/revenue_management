@@ -10,53 +10,53 @@
             <div class="col-lg-7">
                 <div class="p-5">
                     <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                        <h1 class="h4 text-gray-900 mb-4">Tạo tài khoản</h1>
                     </div>
-                    <form class="user">
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                       placeholder="First Name">
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                       placeholder="Last Name">
-                            </div>
+                    <form class="user" method="post" asp-action="" asp-controller="">
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" name="name" placeholder="Họ và tên" autofocus>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                   placeholder="Email Address">
+                            <input type="text" class="form-control form-control-user" name="username" placeholder="Tên đăng nhập">
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="password" class="form-control form-control-user"
-                                       id="exampleInputPassword" placeholder="Password">
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="password" class="form-control form-control-user"
-                                       id="exampleRepeatPassword" placeholder="Repeat Password">
-                            </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" name="phone" placeholder="Số điện thoại" max="10">
                         </div>
-                        <a href="login.html" class="btn btn-primary btn-user btn-block">
-                            Register Account
-                        </a>
-                        <hr>
-                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                            <i class="fab fa-google fa-fw"></i> Register with Google
-                        </a>
-                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                            <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                        </a>
+                        <div class="form-group">
+                            <input type="email" class="form-control form-control-user" name="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" name="password" placeholder="Mật khẩu">
+                        </div>
+
+        
+                        <div class="form-group">
+                            <label>Giới tính: </label>
+                            <br />
+                            <label for="male">Nam</label>
+                            <input type="radio" value="1" id="male" name="sex" checked class="mr-3" />
+                            <label for="female">Nữ</label>
+                            <input type="radio" value="2" name="sex" id="female" />
+                        </div>
+                        
+                        <div>
+                            <label>Ngày sinh:</label> <br/>
+                            <input type="date" class="mb-4" style="border: 1px solid lightgrey;padding: 3px 5px;border-radius: 5px;color: #878181;" />
+                        </div>
+
+                        <input type="submit" value="Đăng ký" class="btn btn-primary btn-user btn-block" />
                     </form>
-                    <hr>
                     <div class="text-center">
-                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                        <a class="small" asp-controller="Auth" asp-action="ForgetPassword">Quên mật khẩu</a>
                     </div>
                     <div class="text-center">
-                        <a class="small" href="login.html">Already have an account? Login!</a>
+                        <a class="small" asp-action="Login" asp-controller="Auth">Bạn đã có tài khoản? Đăng nhập!</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@section Scripts {
+
+}

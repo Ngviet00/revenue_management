@@ -31,6 +31,12 @@ namespace RevenueManagement.Controllers
         }
 
         [HttpPost]
+        public IActionResult? Register(LoginRequest loginRequest)
+        {
+            return null;
+        }
+
+        [HttpPost]
         public IActionResult? Logout()
         {
             Console.WriteLine("ss");
