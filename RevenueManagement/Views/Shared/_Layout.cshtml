@@ -12,6 +12,7 @@
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="~/css/font-awesome-4.7.css" rel="stylesheet">
     <link href="~/css/select2.min.css" rel="stylesheet" />
+    @RenderSection("Style", required: false)
 </head>
 
 <body id="page-top">
@@ -45,7 +46,7 @@
             <div class="modal-body">Bạn có muốn đăng xuất không?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                    <form method="post" asp-controller="User" asp-action="Logout">
+                <form method="post" asp-controller="Auth" asp-action="Logout">
                     <input class="btn btn-danger text-white" type="submit" value="Đăng xuất"/>
                 </form>
             </div>

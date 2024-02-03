@@ -1,4 +1,7 @@
-﻿<!-- Topbar -->
+﻿@{
+    var userId = User.FindFirst("Id") ?? null;
+    var Username = User.FindFirst("UserName").Value ?? null;
+}
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 <!-- Sidebar Toggle (Topbar) -->
@@ -52,8 +55,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-bell fa-fw"></i>
-            <!-- Counter - Alerts -->
-            <span class="badge badge-danger badge-counter">3+</span>
+            @* <span class="badge badge-danger badge-counter">3+</span> *@
         </a>
         <!-- Dropdown - Alerts -->
         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -68,8 +70,8 @@
                     </div>
                 </div>
                 <div>
+                    <span class="font-weight-bold">Test đã tạo đơn mới</span>
                     <div class="small text-gray-500">18-01-2024 18:23:11</div>
-                    <span class="font-weight-bold">Hiếu đã tạo đơn mới</span>
                 </div>
             </a>
             <a class="dropdown-item text-center small text-gray-500" href="#">Xem tất cả thông báo</a>
@@ -129,7 +131,7 @@
     <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Username đăng nhập</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào: @Username</span>
             <img class="img-profile rounded-circle"
                  src="~/img/undraw_profile.svg">
         </a>
@@ -140,7 +142,7 @@
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Thông tin cá nhân
             </a>
-            <a class="dropdown-item" href="#">
+                <a class="dropdown-item" asp-controller="User" asp-action="ChangePassword">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Đổi mật khẩu
             </a>

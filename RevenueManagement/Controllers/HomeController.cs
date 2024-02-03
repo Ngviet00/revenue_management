@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using RevenueManagement.Models;
 using System.Diagnostics;
 using RevenueManagement.Utils;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RevenueManagement.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -15,11 +17,6 @@ namespace RevenueManagement.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }
