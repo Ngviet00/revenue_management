@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RevenueManagement.Context;
-using RevenueManagement.Models.Requests.User;
+using RevenueManagement.Models.DTOs.User;
+using RevenueManagement.Models.Entities;
 
 namespace RevenueManagement.Services
 {
@@ -15,24 +16,29 @@ namespace RevenueManagement.Services
             this._context = _context;
             this._mapper = _mapper;
         }
-        
-        public async Task<bool> CheckPassword(ChangePasswordRequest request, long currentUserId)
+
+        public async Task<UserDto>? GetById(long userId)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
-            
-            if (user == null)
+            return _mapper.Map<UserDto>(await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId));
+        }
+
+        public async Task<bool> ChangePassword(UserDto userDto, string newPassword)
+        {
+            try
             {
+                var eUser = _mapper.Map<User>(userDto);
+                eUser.Password = Utils.Security.MD5Hash(newPassword);
+                
+                _context.Entry(eUser).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
                 return false;
             }
-
-            if (user.Password != Utils.Security.MD5Hash(request.CurrentPassword))
-            {
-                return false;
-            }
-            var password = request.NewPassword;
-
-            var a = 1;
-            return true;
         }
     }
 }

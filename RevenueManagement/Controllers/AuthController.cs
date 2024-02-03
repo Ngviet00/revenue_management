@@ -33,32 +33,32 @@ namespace RevenueManagement.Controllers
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
             //validate
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(loginRequest);
+                //find user
+                var user = await this.authService.Login(loginRequest);
+
+                if (user is null)
+                {
+                    ViewBag.ErrorMessage = "Tài khoản hoặc mật khẩu không chính xác!";
+                    return View(loginRequest);
+                }
+
+                //login success
+                var claims = new List<Claim>
+                {
+                    new Claim("Id", user.Id.ToString()),
+                    new Claim("Name", user.Name.ToString()),
+                    new Claim("UserName", user.Username.ToString()),
+                    new Claim("RoleId", user.RoldId.ToString())
+                };
+                var claimsIdentity = new ClaimsIdentity(claims, "Login");
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+                return RedirectToAction("Login", "Auth");
             }
-
-            //find user
-            var user = await this.authService.Login(loginRequest);
-
-            if (user is null)
-            {
-                ViewBag.ErrorMessage = "Tài khoản hoặc mật khẩu không chính xác!";
-                return View(loginRequest);
-            }
-
-            //login success
-            var claims = new List<Claim>
-            {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("Name", user.Name.ToString()),
-                new Claim("UserName", user.Username.ToString()),
-                new Claim("RoleId", user.RoldId.ToString())
-            };
-            var claimsIdentity = new ClaimsIdentity(claims, "Login");
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-            return RedirectToAction("Login", "Auth");
+            
+            return View(loginRequest);
         }
 
         [HttpGet]
@@ -76,7 +76,7 @@ namespace RevenueManagement.Controllers
         [HttpGet]
         public IActionResult? ForgetPassword()
         {
-            return View("~/Views/Auth/ForgotPassword.cshtml"); ;
+            return View("~/Views/Auth/ForgotPassword.cshtml");
         }
 
         [HttpPost]

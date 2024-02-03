@@ -27,8 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Models\Requests\Company\" />
-    <Folder Include="Models\Responses\Company\" />
-    <Folder Include="Models\Responses\User\" />
+    <Folder Include="Models\Responses\" />
   </ItemGroup>
 
 </Project>
