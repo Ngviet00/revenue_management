@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Enum\User\" />
     <Folder Include="Models\Requests\Company\" />
     <Folder Include="Models\Responses\" />
   </ItemGroup>

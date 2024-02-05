@@ -72,5 +72,13 @@
 <script src="~/js/bootstrap.min.js"></script>
 <script src="~/js/select2.min.js"></script>
 @RenderSection("Script", required: false)
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $(".js-alert").remove();
+        }, 3000);
+    });
+</script>
 </body>
 </html>

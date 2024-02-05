@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RevenueManagement.Models.Requests.User;
 using RevenueManagement.Services;
@@ -63,6 +64,12 @@ namespace RevenueManagement.Controllers
                     return RedirectToAction("Login", "Auth");
                 }
 
+                if (!this.userService.CheckPassword(user, request.CurrentPassword))
+                {
+                    ViewBag.ErrorCurrentPassword = "Mật khẩu cũ không chính xác!";
+                    return View();
+                }
+
                 if (await this.userService.ChangePassword(user, request.NewPassword))
                 {
                     ViewBag.Status = "success";
@@ -74,7 +81,7 @@ namespace RevenueManagement.Controllers
                     ViewBag.Message = "Cập nhật mật khẩu thất bại!";
                 }
 
-                return RedirectToAction("ChangePassword", "User");
+                return View();
             }
 
             return View(request);

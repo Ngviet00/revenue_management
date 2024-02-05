@@ -17,19 +17,18 @@ namespace RevenueManagement.Services
             this._mapper = _mapper;
         }
 
-        public async Task<UserDto>? GetById(long userId)
+        public async Task<User>? GetById(long userId)
         {
-            return _mapper.Map<UserDto>(await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId));
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId);
         }
 
-        public async Task<bool> ChangePassword(UserDto userDto, string newPassword)
+        public async Task<bool> ChangePassword(User user, string newPassword)
         {
             try
             {
-                var eUser = _mapper.Map<User>(userDto);
-                eUser.Password = Utils.Security.MD5Hash(newPassword);
+                user.Password = Utils.Security.MD5Hash(newPassword);
                 
-                _context.Entry(eUser).State = EntityState.Modified;
+                _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
                 
                 return true;
@@ -37,8 +36,14 @@ namespace RevenueManagement.Services
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                return false;
             }
+
+            return false;
+        }
+
+        public bool CheckPassword(User user, string currentPassword)
+        {
+            return user.Password == Utils.Security.MD5Hash(currentPassword);   
         }
     }
 }
