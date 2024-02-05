@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Personal Information";
+    Layout = "_Layout";
+}
+
+@model RevenueManagement.Models.Entities.User;
+
+@if (ViewBag.Status != null && ViewBag.Message != null)
+{
+    <div class="p-2 mb-2 @(ViewBag.Status == "success" ? "bg-success" : "bg-danger") text-white js-alert">
+        @Html.Raw(ViewBag.Message)
+    </div>
+}
+
+<h1 class="h3 mb-2 text-gray-800">Thông tin cá nhân</h1>
+
+<form class="form" role="form" method="post" asp-action="Information" asp-controller="User">
+    <input type="hidden" asp-for="Id"/>
+    <div class="form-group">
+        <label for="name">Họ tên</label>
+        <input type="text" class="form-control" id="name" asp-for="Name" placeholder="Họ tên...">
+    </div>
+
+    <div class="form-group">
+        <label for="phone">Số điện thoại</label>
+        <input type="text" max="10" class="form-control" id="phone" asp-for="Phone" placeholder="Nhập số điện thoại...">
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" placeholder="Nhập email..." asp-for="Email">
+    </div>
+
+    <div class="form-group">
+        <label>Giới tính</label> <br />
+
+        <label for="female">Nam</label>
+        <input type="radio" id="female" value="1" name="Sex" class="mr-4" @(Model.Sex == 1 ? "checked" : "" )>
+
+        <label for="female">Nữ</label>
+        <input type="radio" id="female" value="2" name="Sex" class="mr-4" @(Model.Sex == 2 ? "checked" : "" )>
+    </div>
+
+    <div class="form-group">
+        <label>Ngày sinh</label> <br />
+        <input type="date" asp-for="DateOfBirth" />
+    </div>
+
+    <div class="form-group">
+        <label>Ảnh</label> <br />
+        <input type="file" name="Image" asp-for="Image" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

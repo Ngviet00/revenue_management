@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RevenueManagement.Models.Entities;
 using RevenueManagement.Models.Requests.User;
 using RevenueManagement.Services;
 
@@ -15,6 +16,7 @@ namespace RevenueManagement.Controllers
         {
             this.userService = userService;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -85,6 +87,57 @@ namespace RevenueManagement.Controllers
             }
 
             return View(request);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Information()
+        {
+            var userId = Convert.ToInt64(User.FindFirst("Id").Value);
+
+            var user = await this.userService.GetById(userId);
+
+            if (user is null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
+            user.Password = null;
+
+            return View(user);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Information(InformationRequest request)
+        {
+           
+            var userId = Convert.ToInt64(request.Id);
+
+            var user = await this.userService.GetById(userId);
+
+            if (user is not null)
+            {
+                user.Name = request.Name;
+                user.Phone  = request.Phone;
+                user.Email = request.Email;
+                user.Phone = request.Phone;
+                user.Sex = request.Sex; 
+                user.Image = request.Image;
+                
+                if (await this.userService.UpdateInformation(user))
+                {
+                    ViewBag.Status = "success";
+                    ViewBag.Message = "Cập nhật tài khoản thành công!";
+                } else
+                {
+                    ViewBag.Status = "failed";
+                    ViewBag.Message = "Cập nhật tài khoản thất bại!";
+                }
+
+                return View(user);
+            }
+
+
+            return RedirectToAction("Login", "Auth");
         }
     }
 }

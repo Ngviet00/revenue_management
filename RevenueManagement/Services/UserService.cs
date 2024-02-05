@@ -45,5 +45,19 @@ namespace RevenueManagement.Services
         {
             return user.Password == Utils.Security.MD5Hash(currentPassword);   
         }
+
+        public async Task<bool> UpdateInformation(User user)
+        {
+            try
+            {
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return true;
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
     }
 }
