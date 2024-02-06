@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RevenueManagement.Models.Entities;
 using RevenueManagement.Models.Requests.User;
 using RevenueManagement.Services;
@@ -11,21 +10,47 @@ namespace RevenueManagement.Controllers
     public class UserController : Controller
     {
         private readonly UserService userService;
+        private readonly RoleService roleService;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, RoleService roleService)
         {
             this.userService = userService;
+            this.roleService = roleService; 
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.users = await this.userService.GetAll();
             return View();
         }
 
         [HttpGet]
-        public IActionResult? Create()
+        public async Task<IActionResult>? Create()
         {
+            ViewBag.roles = await this.roleService.GetAllIgnoreSuperAdmin();
+            ViewBag.RoleId = User.FindFirst("RoleId").Value;
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(StoreUserRequest request)
+        {
+            if (ModelState.IsValid)
+            {
+                if (await this.userService.Save(request))
+                {
+                    ViewBag.Status = "success";
+                    ViewBag.Message = "Cập nhật tài khoản thành công!";
+                } else
+                {
+                    ViewBag.Status = "failed";
+                    ViewBag.Message = "Cập nhật tài khoản thất bại!";
+                }
+
+                return View();
+            }
+
+            return View(request);
         }
 
         [HttpGet]

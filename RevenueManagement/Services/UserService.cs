@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RevenueManagement.Context;
 using RevenueManagement.Models.DTOs.User;
 using RevenueManagement.Models.Entities;
+using RevenueManagement.Models.Requests.User;
 
 namespace RevenueManagement.Services
 {
@@ -15,6 +16,11 @@ namespace RevenueManagement.Services
         {
             this._context = _context;
             this._mapper = _mapper;
+        }
+
+        public async Task<List<User>> GetAll()
+        {
+            return await _context.Users.AsNoTracking().ToListAsync();
         }
 
         public async Task<User>? GetById(long userId)
@@ -52,6 +58,34 @@ namespace RevenueManagement.Services
             {
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
+                return true;
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+
+        public async Task<bool> Save(StoreUserRequest request)
+        {
+            try
+            {
+                var user = new User
+                {
+                    Name = request.Name,
+                    Username = request.Username,
+                    Password = Utils.Security.MD5Hash(request.Password),
+                    Phone = request.Phone,
+                    Email = request.Email,
+                    Image = request.Image,
+                    Sex = request.Sex,
+                    DateOfBirth = request.DateOfBirth,
+                    RoleId = request.RoleId,
+                };
+
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+
                 return true;
             } catch (Exception ex)
             {

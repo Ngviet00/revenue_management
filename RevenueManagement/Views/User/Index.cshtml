@@ -2,10 +2,21 @@
     ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
+
+
+
+@section Style {
+    <style>
+        tbody tr td {
+            vertical-align: middle !important;
+        }
+    </style>
+}
+
 <div class="">
-    @* <div class="p-3 mb-2 bg-success text-white rounded">
+     <div class="p-3 mb-2 bg-success text-white rounded">
         Thêm thành công!
-    </div> *@
+    </div> 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Danh sách người dùng</h1>
         <a href="@Url.Action("Create", "User")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -15,25 +26,33 @@
 </div>
 <table class="table">
     <thead class="thead-light">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-    </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Họ tên</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Email</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Quyền</th>
+            <th scope="col">Hành động</th>
+        </tr>
     </thead>
     <tbody>
-    @for (var i = 0; i < 10; i++)
-    {
-        <tr>
-            <th scope="row">@i</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>
-                <a href="">Sửa</a>
-                <a href="">Xóa</a>
-            </td>
-        </tr>
-    }
+        @foreach (var user in ViewBag.users)
+        {
+            <tr>
+                <th scope="row">@user.Id</th>
+                <td>@user.Name</td>
+                <td>@user.Phone</td>
+                <td>@user.Email</td>
+                <td>@(user.Sex == 1 ? "Nam" : "Nữ" )</td>
+                <td>@user.DateOfBirth</td>
+                <td>@(user.RoleId == 1 ? "Superadmin" : user.RoleId == 2 ? "Admin" : "Staff")</td>
+                <td>
+                    <a asp-action="Information" asp-controller="User" class="btn btn-primary">Sửa</a>
+                    <a asp-action="Information" asp-controller="User" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
