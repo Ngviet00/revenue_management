@@ -93,5 +93,26 @@ namespace RevenueManagement.Services
                 throw;
             }
         }
+
+        public async Task<bool> DeleteById(long Id)
+        {
+            try
+            {
+                var user = await this.GetById(Id);
+                if (user == null)
+                {
+                    return false;
+                }
+
+                this._context.Users.Remove(user);
+                await this._context.SaveChangesAsync();
+
+                return true;
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
     }
 }

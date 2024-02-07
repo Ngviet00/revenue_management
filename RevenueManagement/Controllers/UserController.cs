@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RevenueManagement.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 using RevenueManagement.Models.Requests.User;
 using RevenueManagement.Services;
 
@@ -20,7 +21,10 @@ namespace RevenueManagement.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.status = TempData["status"] as string;
+            ViewBag.msg = TempData["msg"] as string;
             ViewBag.users = await this.userService.GetAll();
+
             return View();
         }
 
@@ -39,15 +43,15 @@ namespace RevenueManagement.Controllers
             {
                 if (await this.userService.Save(request))
                 {
-                    ViewBag.Status = "success";
-                    ViewBag.Message = "Cập nhật tài khoản thành công!";
+                    TempData["status"] = "success";
+                    TempData["msg"] = "Thêm người dùng thành công!";
                 } else
                 {
-                    ViewBag.Status = "failed";
-                    ViewBag.Message = "Cập nhật tài khoản thất bại!";
+                    TempData["status"] = "failed";
+                    TempData["msg"] = "Thêm người dùng thất bại!";
                 }
 
-                return View();
+                return RedirectToAction("Index", "User");
             }
 
             return View(request);
@@ -65,10 +69,21 @@ namespace RevenueManagement.Controllers
             return null;
         }
 
-        [HttpDelete]
-        public IActionResult? Delete()
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult>? Delete(long Id)
         {
-            return null;
+            if (await this.userService.DeleteById(Id))
+            {
+                TempData["status"] = "success";
+                TempData["msg"] = "Xóa người dùng thành công!";
+            } else
+            {
+                TempData["status"] = "failed";
+                TempData["msg"] = "Xóa người dùng thất bại!";
+            }
+
+            return RedirectToAction("Index", "User");
         }
 
         [HttpGet]
@@ -117,7 +132,7 @@ namespace RevenueManagement.Controllers
         [HttpGet]
         public async Task<IActionResult> Information()
         {
-            var userId = Convert.ToInt64(User.FindFirst("Id").Value);
+            var userId = String.IsNullOrEmpty(Request.Query["user_id"]) ? Convert.ToInt64(User.FindFirst("Id").Value) : Convert.ToInt64(Request.Query["user_id"]);
 
             var user = await this.userService.GetById(userId);
 

@@ -3,8 +3,6 @@
     Layout = "_Layout";
 }
 
-
-
 @section Style {
     <style>
         tbody tr td {
@@ -14,9 +12,12 @@
 }
 
 <div class="">
-     <div class="p-3 mb-2 bg-success text-white rounded">
-        Thêm thành công!
-    </div> 
+    @if (ViewBag.status != null && ViewBag.msg != null)
+    {
+        <div class="p-3 mb-2 @(ViewBag.status == "success" ? "bg-success" : "bg-danger") text-white rounded js-alert">
+            @Html.Raw(ViewBag.msg)
+        </div>
+    }
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Danh sách người dùng</h1>
         <a href="@Url.Action("Create", "User")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -27,7 +28,7 @@
 <table class="table">
     <thead class="thead-light">
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">ID</th>
             <th scope="col">Họ tên</th>
             <th scope="col">Số điện thoại</th>
             <th scope="col">Email</th>
@@ -49,8 +50,10 @@
                 <td>@user.DateOfBirth</td>
                 <td>@(user.RoleId == 1 ? "Superadmin" : user.RoleId == 2 ? "Admin" : "Staff")</td>
                 <td>
-                    <a asp-action="Information" asp-controller="User" class="btn btn-primary">Sửa</a>
-                    <a asp-action="Information" asp-controller="User" class="btn btn-danger">Xóa</a>
+                    <a asp-action="Information" asp-controller="User" asp-route-user_id="@user.Id" class="btn btn-primary">Sửa</a>
+                    <form method="post" asp-action="Delete" asp-controller="User" asp-route-id="@user.Id" class="d-inline-block">
+                        <input type="submit" value="Xóa" class="btn btn-danger"/>
+                    </form>
                 </td>
             </tr>
         }
