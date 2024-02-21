@@ -3,12 +3,12 @@ using RevenueManagement.Context;
 
 namespace RevenueManagement.Services
 {
-    public class CompanyService
+    public class OrderService
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public CompanyService(ApplicationDbContext _context, IMapper _mapper)
+        public OrderService(ApplicationDbContext _context, IMapper _mapper)
         {
             this._context = _context;
             this._mapper = _mapper;

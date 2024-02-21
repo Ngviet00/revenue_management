@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RevenueManagement.Models;
 using System.Diagnostics;
-using RevenueManagement.Utils;
 using Microsoft.AspNetCore.Authorization;
 
 namespace RevenueManagement.Controllers

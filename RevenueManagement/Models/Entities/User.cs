@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace RevenueManagement.Models.Entities
 {
@@ -49,6 +48,5 @@ namespace RevenueManagement.Models.Entities
 
         [Column("deleted_at")]
         public DateTime? DeletedAt { get; set; }
-
     }
 }

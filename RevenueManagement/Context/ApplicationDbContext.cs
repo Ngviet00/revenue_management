@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RevenueManagement.Models.Entities;
 
 namespace RevenueManagement.Context
@@ -13,6 +12,10 @@ namespace RevenueManagement.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<UserCompany> UserCompanies { get; set; }
+        public DbSet<UserCompanyOrder> UserCompanyOrders { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

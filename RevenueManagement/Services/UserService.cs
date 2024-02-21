@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RevenueManagement.Context;
-using RevenueManagement.Models.DTOs.User;
 using RevenueManagement.Models.Entities;
 using RevenueManagement.Models.Requests.User;
 
@@ -33,10 +32,10 @@ namespace RevenueManagement.Services
             try
             {
                 user.Password = Utils.Security.MD5Hash(newPassword);
-                
+
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-                
+
                 return true;
             }
             catch (Exception exception)
@@ -49,7 +48,7 @@ namespace RevenueManagement.Services
 
         public bool CheckPassword(User user, string currentPassword)
         {
-            return user.Password == Utils.Security.MD5Hash(currentPassword);   
+            return user.Password == Utils.Security.MD5Hash(currentPassword);
         }
 
         public async Task<bool> UpdateInformation(User user)
@@ -59,7 +58,8 @@ namespace RevenueManagement.Services
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
                 return true;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 throw;
@@ -87,7 +87,8 @@ namespace RevenueManagement.Services
                 await _context.SaveChangesAsync();
 
                 return true;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 throw;
@@ -108,7 +109,8 @@ namespace RevenueManagement.Services
                 await this._context.SaveChangesAsync();
 
                 return true;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 throw;
