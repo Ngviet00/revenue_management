@@ -21,13 +21,13 @@ namespace RevenueManagement.Models.Entities
         public string? Seller { get; set; }
 
         [Column("weight")]
-        public decimal? Weight { get; set; }
+        public double? Weight { get; set; }
 
         [Column("price")]
-        public decimal? Price { get; set; }
+        public double? Price { get; set; }
 
         [Column("total_money")]
-        public decimal? TotalMoney { get; set; }
+        public double? TotalMoney { get; set; }
 
         [Column("created_at")]
         public DateTime? CreatedAt { get; set; }
@@ -37,5 +37,7 @@ namespace RevenueManagement.Models.Entities
 
         [Column("deleted_at")]
         public DateTime? DeletedAt { get; set; }
+
+        public ICollection<UserCompanyOrder>? UserCompanyOrders { get; set; }
     }
 }

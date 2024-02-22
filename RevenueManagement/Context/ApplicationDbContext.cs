@@ -19,12 +19,14 @@ namespace RevenueManagement.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //seed data table roles
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = 1, Name = "SuperAdmin" },
                 new Role { Id = 2, Name = "Admin" },
                 new Role { Id = 3, Name = "Staff" }
             );
 
+            //seed superadmin
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -35,6 +37,46 @@ namespace RevenueManagement.Context
                     RoleId = 1
                 }
             );
+
+            //set relationship notification with user
+            modelBuilder.Entity<Notification>()
+                .HasOne<User>(s => s.User)
+                .WithMany(g => g.Notifications)
+                .HasForeignKey(s => s.ReceiveUserId);
+
+            //set relationship user_company
+            modelBuilder.Entity<UserCompany>().HasKey(ur => new { ur.UserId, ur.CompanyId });
+            
+            modelBuilder.Entity<UserCompany>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserCompanies)
+                .HasForeignKey(ur => ur.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserCompany>()
+                .HasOne(ur => ur.Company)
+                .WithMany(r => r.UserCompanies)
+                .HasForeignKey(ur => ur.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            //set relationship user_company_order
+            modelBuilder.Entity<UserCompanyOrder>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserCompanyOrders)
+                .HasForeignKey(ur => ur.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserCompanyOrder>()
+                .HasOne(ur => ur.Company)
+                .WithMany(r => r.UserCompanyOrders)
+                .HasForeignKey(ur => ur.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserCompanyOrder>()
+                .HasOne(ur => ur.Order)
+                .WithMany(r => r.UserCompanyOrders)
+                .HasForeignKey(ur => ur.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

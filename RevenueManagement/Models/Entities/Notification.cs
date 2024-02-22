@@ -15,7 +15,7 @@ namespace RevenueManagement.Models.Entities
         public string? Content { get; set; }
 
         [Column("read")]
-        public int Read{ get; set; }
+        public int Read { get; set; }
 
         [Column("receive_user_id")]
         public long ReceiveUserId{ get; set; }
@@ -28,5 +28,7 @@ namespace RevenueManagement.Models.Entities
 
         [Column("deleted_at")]
         public DateTime? DeletedAt { get; set; }
+
+        public User? User { get; set; }
     }
 }

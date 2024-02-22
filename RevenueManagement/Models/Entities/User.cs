@@ -48,5 +48,13 @@ namespace RevenueManagement.Models.Entities
 
         [Column("deleted_at")]
         public DateTime? DeletedAt { get; set; }
+
+        public Role? Role { get; set; }
+
+        public ICollection<Notification>? Notifications { get; set; }
+
+        public ICollection<UserCompany>? UserCompanies { get; set; }
+
+        public ICollection<UserCompanyOrder>? UserCompanyOrders { get; set; }
     }
 }

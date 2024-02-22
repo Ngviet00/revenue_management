@@ -18,12 +18,18 @@ namespace RevenueManagement.Models.Entities
         public long? CompanyId { get; set; }
 
         [Column("order_id")]
-        public long? RoleId { get; set; }
+        public long? OrderId { get; set; }
 
         [Column("created_at")]
         public DateTime? CreatedAt { get; set; }
 
         [Column("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        public User? User { get; set; }
+
+        public Company? Company { get; set; }
+
+        public Order? Order { get; set; }
     }
 }

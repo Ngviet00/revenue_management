@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RevenueManagement.Models.Entities
 {
+    [Table("user_companies")]
     public class UserCompany
     {
         [Key]
@@ -11,15 +12,19 @@ namespace RevenueManagement.Models.Entities
         public long Id { get; set; }
 
         [Column("user_id")]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         [Column("company_id")]
-        public int CompanyId { get; set; }
+        public long CompanyId { get; set; }
 
         [Column("created_at")]
         public DateTime? CreatedAt { get; set; }
 
         [Column("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        public User? User { get; set; }
+
+        public Company? Company { get; set; }
     }
 }

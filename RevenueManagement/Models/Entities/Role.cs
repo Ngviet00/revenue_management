@@ -22,5 +22,7 @@ namespace RevenueManagement.Models.Entities
 
         [Column("deleted_at")]
         public DateTime? DeletedAt { get; set; }
+
+        public ICollection<User>? Users { get; set; }
     }
 }

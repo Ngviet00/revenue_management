@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RevenueManagement.Context;
 
@@ -11,9 +12,11 @@ using RevenueManagement.Context;
 namespace RevenueManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240222083740_AddUserCompanyRelationship")]
+    partial class AddUserCompanyRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -360,7 +363,7 @@ namespace RevenueManagement.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("created_at");
 
-                    b.Property<long?>("OrderId")
+                    b.Property<long?>("RoleId")
                         .HasColumnType("bigint")
                         .HasColumnName("order_id");
 
@@ -373,12 +376,6 @@ namespace RevenueManagement.Migrations
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("user_company_orders");
                 });
@@ -422,40 +419,9 @@ namespace RevenueManagement.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RevenueManagement.Models.Entities.UserCompanyOrder", b =>
-                {
-                    b.HasOne("RevenueManagement.Models.Entities.Company", "Company")
-                        .WithMany("UserCompanyOrders")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RevenueManagement.Models.Entities.Order", "Order")
-                        .WithMany("UserCompanyOrders")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RevenueManagement.Models.Entities.User", "User")
-                        .WithMany("UserCompanyOrders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Order");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("RevenueManagement.Models.Entities.Company", b =>
                 {
                     b.Navigation("UserCompanies");
-
-                    b.Navigation("UserCompanyOrders");
-                });
-
-            modelBuilder.Entity("RevenueManagement.Models.Entities.Order", b =>
-                {
-                    b.Navigation("UserCompanyOrders");
                 });
 
             modelBuilder.Entity("RevenueManagement.Models.Entities.Role", b =>
@@ -468,8 +434,6 @@ namespace RevenueManagement.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("UserCompanies");
-
-                    b.Navigation("UserCompanyOrders");
                 });
 #pragma warning restore 612, 618
         }
