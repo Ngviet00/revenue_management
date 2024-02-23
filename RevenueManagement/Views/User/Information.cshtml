@@ -1,14 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Personal Information";
+    ViewData["Title"] = "Thông tin cá nhân";
     Layout = "_Layout";
 }
 
 @model RevenueManagement.Models.Entities.User;
 
-@if (ViewBag.Status != null && ViewBag.Message != null)
+@if (ViewBag.status != null && ViewBag.msg != null)
 {
-    <div class="p-2 mb-2 @(ViewBag.Status == "success" ? "bg-success" : "bg-danger") text-white js-alert">
-        @Html.Raw(ViewBag.Message)
+    <div class="p-2 mb-2 @(ViewBag.status == "success" ? "bg-success" : "bg-danger") text-white js-alert">
+        @Html.Raw(ViewBag.msg)
     </div>
 }
 

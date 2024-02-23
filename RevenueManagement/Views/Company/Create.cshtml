@@ -1,14 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "Thêm mới";
+    ViewData["Title"] = "Danh sách Công ty/Hộ kinh doanh";
     Layout = "_Layout";
 }
 
 @model RevenueManagement.Models.Requests.User.StoreUserRequest;
 
+
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Thêm mới</h1>
-    <a href="@Url.Action("Index", "User")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-        Danh sách người dùng
+    <a href="@Url.Action("Index", "Company")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        Danh sách Công ty/HKD
     </a>
 </div>
 <form method="post" asp-controller="User" asp-action="Save">
@@ -60,11 +61,11 @@
             <div class="form-group mb-0">
                 <label for="start">Ngày sinh:</label><br />
                 <input type="date" oninvalid="this.setCustomValidity('Ngày sinh không được để trống!')" required id="dob" asp-for="DateOfBirth" style="
-                outline: none;
-                border: 1px solid #c7c7c7;
-                border-radius: 3px;
-                padding: 2px 5px;
-                color: #8f8686;" />
+                    outline: none;
+                    border: 1px solid #c7c7c7;
+                    border-radius: 3px;
+                    padding: 2px 5px;
+                    color: #8f8686;" />
             </div>
         </div>
     </div>

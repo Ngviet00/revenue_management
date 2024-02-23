@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Danh sách người dùng";
     Layout = "_Layout";
 }
 
@@ -25,6 +25,12 @@
         </a>
     </div>
 </div>
+@*<div id="search" class="d-flex mb-3">
+    <form action="/" method="post">
+        <input type="text" name="keyword" class="input-group" value="" />
+        <button class="btn btn-primary">Tìm kiếm</button>
+    </form>
+</div>*@
 <table class="table">
     <thead class="thead-light">
         <tr>
@@ -43,11 +49,11 @@
         {
             <tr>
                 <th scope="row">@user.Id</th>
-                <td>@user.Name</td>
-                <td>@user.Phone</td>
-                <td>@user.Email</td>
+                <td>@(@user.Name ?? '-')</td>
+                <td>@(@user.Phone ?? '-')</td>
+                <td>@(@user.Email ?? '-')</td>
                 <td>@(user.Sex == 1 ? "Nam" : "Nữ" )</td>
-                <td>@user.DateOfBirth</td>
+                <td>@(@user.DateOfBirth ?? '-')</td>
                 <td>@(user.RoleId == 1 ? "Superadmin" : user.RoleId == 2 ? "Admin" : "Staff")</td>
                 <td>
                     <a asp-action="Information" asp-controller="User" asp-route-user_id="@user.Id" class="btn btn-primary">Sửa</a>

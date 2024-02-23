@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Danh sách Công ty/Hộ kinh doanh";
+    Layout = "_Layout";
 }
+
+@section Style {
+    <style>
+        tbody tr td {
+            vertical-align: middle !important;
+        }
+    </style>
+}
+
+<div class="">
+    @if (ViewBag.status != null && ViewBag.msg != null)
+    {
+        <div class="p-3 mb-2 @(ViewBag.status == "success" ? "bg-success" : "bg-danger") text-white rounded js-alert">
+            @Html.Raw(ViewBag.msg)
+        </div>
+    }
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Danh sách công ty/HKD</h1>
+        <a href="@Url.Action("Create", "Company")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            Thêm mới
+        </a>
+    </div>
+</div>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Họ tên</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Email</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Quyền</th>
+            <th scope="col">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @*@foreach (var user in ViewBag.users)
+        {
+            <tr>
+                <th scope="row">@user.Id</th>
+                <td>@user.Name</td>
+                <td>@user.Phone</td>
+                <td>@user.Email</td>
+                <td>@(user.Sex == 1 ? "Nam" : "Nữ" )</td>
+                <td>@user.DateOfBirth</td>
+                <td>@(user.RoleId == 1 ? "Superadmin" : user.RoleId == 2 ? "Admin" : "Staff")</td>
+                <td>
+                    <a asp-action="Information" asp-controller="User" asp-route-user_id="@user.Id" class="btn btn-primary">Sửa</a>
+                    <form method="post" asp-action="Delete" asp-controller="User" asp-route-id="@user.Id" class="d-inline-block">
+                        <input type="submit" value="Xóa" class="btn btn-danger" />
+                    </form>
+                </td>
+            </tr>
+        }*@
+    </tbody>
+</table>

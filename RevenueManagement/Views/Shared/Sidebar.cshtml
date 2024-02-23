@@ -3,18 +3,20 @@
     var action = ViewContext.RouteData.Values["Action"].ToString();
 
     var isMenuItemUserActive = controller == "User" && new[] { "Index", "Create" }.Contains(action);
+    var isMenuItemCompanyActive = controller == "Company" && new[] { "Index", "Create" }.Contains(action);
+    var isMenuItemOrderActive = controller == "Order" && new[] { "Index", "Create" }.Contains(action);
 }
 
 <style>
-    a.nav-link {
+    #accordionSidebar a.nav-link {
         color: white !important;
     }
 
-    a.nav-link i {
+    #accordionSidebar a.nav-link i {
         color: white !important;
     }
 
-    a.collapse-item.active {
+    #accordionSidebar a.collapse-item.active {
         background: #eaecf4;
     }
 </style>
@@ -51,31 +53,29 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseOrder"
+        <a class="nav-link @(isMenuItemOrderActive ? "" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapseOrder"
            aria-expanded="true" aria-controls="collapseOrder">
-            <i class="fas fa-fw fa-th"></i>
-            <span>Đơn hàng</span>
+            <i class="fas fa-fw fa-th @(isMenuItemOrderActive ? "text-white" : "")"></i>
+            <span class="@(isMenuItemOrderActive ? "text-white" : "")">Đơn hàng</span>
         </a>
-        <div id="collapseOrder" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
+        <div id="collapseOrder" class="collapse @(isMenuItemOrderActive ? "show" : "")" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="utilities-color.html">Danh sách</a>
-                <a class="collapse-item" href="utilities-border.html">Thêm mới</a>
+                <a class="collapse-item @(controller == "Order" && action == "Index" ? "active" : "")" href="@Url.Action("Index", "Order")">Danh sách</a>
+                <a class="collapse-item @(controller == "Order" && action == "Create" ? "active" : "")" href="@Url.Action("Create", "Order")">Thêm mới</a>
             </div>
         </div>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-           aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Công ty/Hộ kinh doanh</span>
+        <a class="nav-link @(isMenuItemCompanyActive ? "" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapseCompany"
+           aria-expanded="true" aria-controls="collapseCompany">
+            <i class="fas fa-fw fa-wrench @(isMenuItemCompanyActive ? "text-white" : "")"></i>
+            <span class="@(isMenuItemCompanyActive ? "text-white" : "")">Công ty/Hộ kinh doanh</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
+        <div id="collapseCompany" class="collapse @(isMenuItemCompanyActive ? "show" : "")" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="utilities-color.html">Danh sách</a>
-                <a class="collapse-item" href="utilities-border.html">Thêm mới</a>
+                <a class="collapse-item @(controller == "Company" && action == "Index" ? "active" : "")" href="@Url.Action("Index", "Company")">Danh sách</a>
+                <a class="collapse-item @(controller == "Company" && action == "Create" ? "active" : "")" href="@Url.Action("Create", "Company")">Thêm mới</a>
             </div>
         </div>
     </li>

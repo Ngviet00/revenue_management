@@ -71,6 +71,13 @@ namespace RevenueManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult>? Delete(long Id)
         {
+            if (Id == 1)
+            {
+                TempData["status"] = "failed";
+                TempData["msg"] = "Không thể xóa superadmin!";
+                return RedirectToAction("Index", "User");
+            }
+
             if (await this.userService.DeleteById(Id))
             {
                 TempData["status"] = "success";
@@ -141,13 +148,15 @@ namespace RevenueManagement.Controllers
 
             user.Password = null;
 
+            ViewBag.status = TempData["status"] as string;
+            ViewBag.msg = TempData["msg"] as string;
+
             return View(user);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Information(InformationRequest request)
         {
-           
             var userId = Convert.ToInt64(request.Id);
 
             var user = await this.userService.GetById(userId);
@@ -163,17 +172,16 @@ namespace RevenueManagement.Controllers
                 
                 if (await this.userService.UpdateInformation(user))
                 {
-                    ViewBag.Status = "success";
-                    ViewBag.Message = "Cập nhật tài khoản thành công!";
+                    TempData["status"] = "success";
+                    TempData["msg"] = "Cập nhật tài khoản thành công!";
                 } else
                 {
-                    ViewBag.Status = "failed";
-                    ViewBag.Message = "Cập nhật tài khoản thất bại!";
+                    TempData["status"] = "failed";
+                    TempData["msg"] = "Cập nhật tài khoản thất bại!";
                 }
 
-                return View(user);
+                return RedirectToAction("Information", "User");
             }
-
 
             return RedirectToAction("Login", "Auth");
         }
